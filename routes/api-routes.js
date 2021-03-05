@@ -8,10 +8,6 @@ Router.get("/api/workouts", (req, res) => {
       $addFields: {
         totalDuration: { $sum: "$exercises.duration" } ,
       }
-    },
-    {
-      $addFields: { totalScore:
-        { $add: [ "$totalHomework", "$totalQuiz", "$extraCredit" ] } }
     }
  ])
     .then(dbWorkout => res.json(dbWorkout))
@@ -20,7 +16,16 @@ Router.get("/api/workouts", (req, res) => {
     })
 });
 
-// // POST - addExercise
+// PUT - addEx
+// app.put("/api/workouts/:id", ({ body }, res) => {
+//   db.Workout.create(body)
+//     .then(dbWorkout => res.json(dbWorkout))
+//     .catch(err => {
+//       res.json(err);
+//     })
+// });
+
+// POST - createWorkout
 // app.post("/api/workouts", ({ body }, res) => {
 //   db.Workout.create(body)
 //     .then(dbWorkout => res.json(dbWorkout))
@@ -29,22 +34,20 @@ Router.get("/api/workouts", (req, res) => {
 //     })
 // });
 
-// // GET - getWorkoutsInRange
-// app.get("/api/workouts/range", ({ body }, res) => {
-//   db.Workout.insert(body)
-//     .then(dbWorkout => res.json(dbWorkout))
-//     .catch(err => {
-//       res.json(err);
-//     })
-// });
-
-// // PUT - addEx
-// app.put("/api/workouts/:id", ({ body }, res) => {
-//   db.Workout.create(body)
-//     .then(dbWorkout => res.json(dbWorkout))
-//     .catch(err => {
-//       res.json(err);
-//     })
-// });
+// GET - getWorkoutsInRange
+Router.get("/api/workouts/range", (req, res) => {
+  db.Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration" } ,
+        totalWeight: { $sum: "$exercises.weight" }
+      }
+    }
+ ])
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
 module.exports = Router;

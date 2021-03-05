@@ -6,8 +6,6 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-const db = require("./models");
-
 // connect to mongoose
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
