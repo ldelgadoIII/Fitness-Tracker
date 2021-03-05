@@ -24,52 +24,10 @@ app.use(express.json())
 // static folder
 app.use(express.static("public"));
 
-// ROUTES
-// Find all workouts
-app.get("/api/workouts", (req, res) => {
-  db.Workout.aggregate([
-    {
-      $addFields: {
-        totalDuration: { $sum: "$exercises.duration" } ,
-      }
-    },
-    {
-      $addFields: { totalScore:
-        { $add: [ "$totalHomework", "$totalQuiz", "$extraCredit" ] } }
-    }
- ])
-    .then(dbWorkout => res.json(dbWorkout))
-    .catch(err => {
-      res.json(err);
-    })
-});
+// Require routes
+app.use(require("./routes/api-routes"));
+app.use(require("./routes/html-routes"));
 
-// GET - getWorkoutsInRange
-app.get("/api/workouts/range", ({ body }, res) => {
-  db.Workout.insert(body)
-    .then(dbWorkout => res.json(dbWorkout))
-    .catch(err => {
-      res.json(err);
-    })
-});
-
-// POST - addExercise
-app.post("/api/workouts/", ({ body }, res) => {
-  db.Workout.create(body)
-    .then(dbWorkout => res.json(dbWorkout))
-    .catch(err => {
-      res.json(err);
-    })
-});
-
-// PUT - createWorkout
-app.put("/api/workouts/:id", ({ body }, res) => {
-  db.Workout.insert(body)
-    .then(dbWorkout => res.json(dbWorkout))
-    .catch(err => {
-      res.json(err);
-    })
-});
 
 app.listen(PORT, () => {
     console.log(`You're running on port ${PORT}`);
