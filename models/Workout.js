@@ -29,6 +29,6 @@ WorkoutSchema.methods.getDate = function() {
   return this.getDate;
 };
 
-const Workout = mongoose.Model("Workout", WorkoutSchema);
+const Workout = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = Workout;
