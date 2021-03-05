@@ -24,8 +24,19 @@ app.use(express.json())
 // static folder
 app.use(express.static("public"));
 
-// routes
+// ROUTES
+// Find all workouts
+app.get("/api/workouts", (req, res) => {
+  db.Workout.find({})
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
+// POST
+
+// PUT
 
 app.listen(PORT, () => {
     console.log(`You're running on port ${PORT}`);
