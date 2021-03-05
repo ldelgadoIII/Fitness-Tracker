@@ -42,6 +42,9 @@ Router.get("/api/workouts/range", (req, res) => {
         totalDuration: { $sum: "$exercises.duration" } ,
         totalWeight: { $sum: "$exercises.weight" }
       }
+    },
+    {
+      $limit: 7
     }
  ])
     .then(dbWorkout => res.json(dbWorkout))
