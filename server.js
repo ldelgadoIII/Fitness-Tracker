@@ -34,8 +34,8 @@ app.get("/api/workouts", (req, res) => {
     })
 });
 
-// POST
-app.post("/exercise", ({ body }, res) => {
+// GET - getWorkoutsInRange
+app.get("/api/workouts/range", ({ body }, res) => {
   db.Workout.insert(body)
     .then(dbWorkout => res.json(dbWorkout))
     .catch(err => {
@@ -43,11 +43,23 @@ app.post("/exercise", ({ body }, res) => {
     })
 });
 
-// /exercise/:id
+// POST - addExercise
+app.post("/api/workouts/", ({ body }, res) => {
+  db.Workout.insert(body)
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
-// /stats
-
-// /exercise
+// PUT - createWorkout
+app.put("/api/workouts/", ({ body }, res) => {
+  db.Workout.insert(body)
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
 app.listen(PORT, () => {
     console.log(`You're running on port ${PORT}`);
