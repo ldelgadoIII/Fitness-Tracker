@@ -16,15 +16,15 @@ const WorkoutSchema = new Schema({
   distance: Number
 });
 
-WorkoutSchema.methods.setDate = function() {
-  this.setDate = Date.now();
-  return this.setDate;
-};
+// WorkoutSchema.methods.setDate = function() {
+//   this.setDate = Date.now();
+//   return this.setDate;
+// };
 
-WorkoutSchema.methods.getDate = function() {
-  this.getDate = this.day;
-  return this.getDate;
-};
+// WorkoutSchema.methods.getDate = function() {
+//   this.getDate = this.day;
+//   return this.getDate;
+// };
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
