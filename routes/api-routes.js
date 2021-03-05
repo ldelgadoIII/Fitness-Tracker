@@ -16,23 +16,26 @@ Router.get("/api/workouts", (req, res) => {
     })
 });
 
-// PUT - addEx
-// app.put("/api/workouts/:id", ({ body }, res) => {
-//   db.Workout.create(body)
-//     .then(dbWorkout => res.json(dbWorkout))
-//     .catch(err => {
-//       res.json(err);
-//     })
-// });
+// PUT - addExcercise
+Router.put("/api/workouts/:id", ({ body, params }, res) => {
+  console.log(body)
+  console.log(params.id)
+  db.Workout.updateOne({ _id: params.id }, body)
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
 // POST - createWorkout
-// app.post("/api/workouts", ({ body }, res) => {
-//   db.Workout.create(body)
-//     .then(dbWorkout => res.json(dbWorkout))
-//     .catch(err => {
-//       res.json(err);
-//     })
-// });
+Router.post("/api/workouts", ({ body }, res) => {
+  console.log(body);
+  db.Workout.create(body)
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
 // GET - getWorkoutsInRange
 Router.get("/api/workouts/range", (req, res) => {
