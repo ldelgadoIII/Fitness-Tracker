@@ -35,8 +35,19 @@ app.get("/api/workouts", (req, res) => {
 });
 
 // POST
+app.post("/exercise", ({ body }, res) => {
+  db.Workout.insert(body)
+    .then(dbWorkout => res.json(dbWorkout))
+    .catch(err => {
+      res.json(err);
+    })
+});
 
-// PUT
+// /exercise/:id
+
+// /stats
+
+// /exercise
 
 app.listen(PORT, () => {
     console.log(`You're running on port ${PORT}`);
