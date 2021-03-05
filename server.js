@@ -27,7 +27,17 @@ app.use(express.static("public"));
 // ROUTES
 // Find all workouts
 app.get("/api/workouts", (req, res) => {
-  db.Workout.find({})
+  db.Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration" } ,
+      }
+    },
+    {
+      $addFields: { totalScore:
+        { $add: [ "$totalHomework", "$totalQuiz", "$extraCredit" ] } }
+    }
+ ])
     .then(dbWorkout => res.json(dbWorkout))
     .catch(err => {
       res.json(err);
@@ -45,7 +55,7 @@ app.get("/api/workouts/range", ({ body }, res) => {
 
 // POST - addExercise
 app.post("/api/workouts/", ({ body }, res) => {
-  db.Workout.insert(body)
+  db.Workout.create(body)
     .then(dbWorkout => res.json(dbWorkout))
     .catch(err => {
       res.json(err);
@@ -53,7 +63,7 @@ app.post("/api/workouts/", ({ body }, res) => {
 });
 
 // PUT - createWorkout
-app.put("/api/workouts/", ({ body }, res) => {
+app.put("/api/workouts/:id", ({ body }, res) => {
   db.Workout.insert(body)
     .then(dbWorkout => res.json(dbWorkout))
     .catch(err => {
