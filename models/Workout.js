@@ -7,7 +7,16 @@ const WorkoutSchema = new Schema({
       type: Date,
       default: Date.now
     },
-    exercises: Array
+    exercises: [
+        {
+            type: String,
+            name: String,
+            duration: Number,
+            weight: Number,
+            reps: Number,
+            sets: Number
+        }
+    ]
 });
 
 WorkoutSchema.methods.setDate = function() {
