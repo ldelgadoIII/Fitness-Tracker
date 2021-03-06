@@ -20,7 +20,9 @@
   
   ## Usage
 
-  
+  ![Home Page](public/images/home.PNG)
+  ![Stats](public/images/stats.PNG)
+  ![Create](public/images/create.PNG)
 
   ## License
 
